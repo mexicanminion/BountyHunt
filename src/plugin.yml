@@ -1,0 +1,9 @@
+name: BountyHunt
+version: 1.0.1
+author: MexicanMinion
+main: me.mexicanminion.bountyHunt.BountyHunt
+commands:
+  set-bounty:
+    description: use to set a bounty, opens bounty
+    usage: /<command>
+    aliases: bountyset
