@@ -30,7 +30,7 @@ public class Utils {
         meta.setLore(lore);
         item.setItemMeta(meta);
 
-        inv.setItem(invSlot, item);
+        inv.setItem(invSlot - 1, item);
 
         return  item;
     }
@@ -50,7 +50,7 @@ public class Utils {
         meta.setLore(lore);
         item.setItemMeta(meta);
 
-        inv.setItem(invSlot, item);
+        inv.setItem(invSlot - 1, item);
 
         return  item;
     }

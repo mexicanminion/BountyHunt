@@ -10,7 +10,7 @@ public class BountyUI {
 
     public static Inventory inv;
     public static String inventory_name;
-    public static int inv_rows = 4 * 9;
+    public static int inv_rows = 3 * 9;
 
     public static void initialize(){
         inventory_name = Utils.chat("Place diamond bounty here");
@@ -22,7 +22,7 @@ public class BountyUI {
 
         Inventory toReturn = Bukkit.createInventory(null, inv_rows, inventory_name);
 
-        Utils.createItem(inv,"dirt",1,0,"Place diamond bounty here","this is line 1");
+        Utils.createItem(inv,"dirt",1,1,"Place diamond bounty here","this is line 1");
 
         toReturn.setContents(inv.getContents());
 

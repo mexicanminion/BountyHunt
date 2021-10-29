@@ -13,7 +13,7 @@ import java.util.zip.GZIPOutputStream;
 public class CurrencyManager {
 
     public BountyHunt plugin;
-    private HashMap<UUID, Integer> currency = new HashMap<UUID, Integer>();
+    public static HashMap<UUID, Integer> currency = new HashMap<UUID, Integer>();
 
     public CurrencyManager(BountyHunt plugin){
         this.plugin = plugin;
@@ -22,15 +22,11 @@ public class CurrencyManager {
     public void saveCurrencyFile() throws FileNotFoundException, IOException {
 
         for(OfflinePlayer offPlayer : Bukkit.getOfflinePlayers()) {
-            File file = new File("Currency/curency.dat");
+            File file = new File("BountyCurrency/curency.dat");
 
             ObjectOutputStream output = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(file)));
 
             UUID uuid = offPlayer.getUniqueId();
-
-            if (currency.get(uuid) != null) {
-                currency.put(uuid, currency.get(uuid));
-            }
 
             try{
                 output.writeObject(currency);
@@ -44,7 +40,7 @@ public class CurrencyManager {
     }
 
     public void loadCurrencyFile() throws FileNotFoundException, IOException, ClassNotFoundException {
-        File file = new File("Currency/curency.dat");
+        File file = new File("BountyCurrency/curency.dat");
         if(file != null){
             ObjectInputStream input = new ObjectInputStream(new GZIPInputStream(new FileInputStream(file)));
             Object readObject = input.readObject();

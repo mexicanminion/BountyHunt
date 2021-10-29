@@ -14,7 +14,7 @@ public class SetBounty implements CommandExecutor {
 
     public SetBounty(BountyHunt plugin){
         this.plugin = plugin;
-        plugin.getCommand("set-bounty").setExecutor(this);
+        plugin.getCommand("setbounty").setExecutor(this);
     }
 
     @Override
