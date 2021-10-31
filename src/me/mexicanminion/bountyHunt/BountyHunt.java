@@ -24,11 +24,11 @@ public class BountyHunt extends JavaPlugin {
         }
 
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Commands init");
-        BountyUI.initialize();
         new CurrencyManager(this);
+        new InventoryClickListener(this);
+        BountyUI.initialize();
         new SetBounty(this);
         new BountyBoard(this);
-        new InventoryClickListener(this);
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin is on, Enjoy hunting!");
     }
 

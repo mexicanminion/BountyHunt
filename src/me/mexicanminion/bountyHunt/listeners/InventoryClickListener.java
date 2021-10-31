@@ -22,7 +22,7 @@ public class InventoryClickListener implements Listener {
     public void onClick(InventoryClickEvent e){
         String title = e.getView().getTitle();
         if(title.equals(BountyUI.inventory_name)){
-            e.setCancelled(true);
+            e.setCancelled(false);
             if(e.getCurrentItem() == null){
                 return;
             }
