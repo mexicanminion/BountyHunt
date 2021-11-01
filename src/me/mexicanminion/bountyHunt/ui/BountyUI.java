@@ -4,6 +4,7 @@ import me.mexicanminion.bountyHunt.BountyHunt;
 import me.mexicanminion.bountyHunt.managers.CurrencyManager;
 import me.mexicanminion.bountyHunt.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -12,10 +13,12 @@ public class BountyUI {
 
     public static Inventory inv;
     public static String inventory_name;
-    public static int inv_rows = 3 * 9;
+    public static int inv_rows = 4 * 9;
 
     private static BountyHunt plugin;
     private static CurrencyManager manager = new CurrencyManager(plugin);
+
+    private static Player bountyPlayer;
 
     public static void initialize(){
         inventory_name = Utils.chat("Place diamond bounty here");
@@ -24,6 +27,8 @@ public class BountyUI {
     }
 
     public static Inventory GUI(Player player){
+
+        bountyPlayer = player;
 
         Inventory toReturn = Bukkit.createInventory(null, inv_rows, inventory_name);
 
@@ -36,23 +41,40 @@ public class BountyUI {
     }
 
     public static void clicked(Player p, int slot, ItemStack clicked, Inventory inv){
+
+        ItemStack[] stack  = inv.getContents();
+
         if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.chat("Click here to confirm"))){
-
-            ItemStack[] stack  = inv.getContents();
-
+            boolean diamondTrue = false;
             for(ItemStack item : stack){
-                Utils.chat(item.getType().toString());
+                //p.sendMessage(item.getType().toString());
+                if(item != null) {
+                    if (item.getType() == Material.matchMaterial("diamond")) {
+                        manager.addCurrencyToPlayer(bountyPlayer, item.getAmount());
+                        diamondTrue = true;
+                    }
+                }
             }
-            //p.sendMessage(Utils.chat("I made a GUI"));
-            //manager.addCurrencyToPlayer(p,20);
-
-            p.closeInventory();
-
+            if(diamondTrue == true){
+                p.sendMessage(Utils.chat("Bounty set on " + bountyPlayer.getDisplayName() + " for a reward of " + manager.getPlayerCurrency(bountyPlayer)));
+                Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + manager.getPlayerCurrency(bountyPlayer));
+                p.closeInventory();
+            }else{
+                p.sendMessage(Utils.chat("Please Use Diamonds!!"));
+            }
         }else if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.chat("Click here to cancel"))){
-            p.sendMessage(Utils.chat("GUI CLosed"));
-            manager.setPlayerCurrency(p,0);
-            //inv.getContents();
-            p.closeInventory();
+            boolean itemInInv = false;
+            for(ItemStack item : stack) {
+                if (item != null) {
+                    itemInInv = true;
+                }
+            }
+            if(itemInInv == true){
+                p.sendMessage(Utils.chat("Please take out all items from inventory!!"));
+            }else{
+                p.sendMessage(Utils.chat("GUI Closed"));
+                p.closeInventory();
+            }
 
         }
     }
