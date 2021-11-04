@@ -2,6 +2,7 @@ package me.mexicanminion.bountyHunt.listeners;
 
 import me.mexicanminion.bountyHunt.BountyHunt;
 import me.mexicanminion.bountyHunt.ui.BountyUI;
+import me.mexicanminion.bountyHunt.ui.ClaimBountyUI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,6 +29,14 @@ public class InventoryClickListener implements Listener {
             }
             if(title.equals(BountyUI.inventory_name)){
                 BountyUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory());
+            }
+        }else if(title.equals(ClaimBountyUI.inventory_name)){
+            e.setCancelled(false);
+            if(e.getCurrentItem() == null){
+                return;
+            }
+            if(title.equals(ClaimBountyUI.inventory_name)){
+                ClaimBountyUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory());
             }
         }
     }

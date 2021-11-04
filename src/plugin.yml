@@ -1,5 +1,5 @@
 name: BountyHunt
-version: 1.0.5.2
+version: 1.0.6.3
 author: MexicanMinion
 main: me.mexicanminion.bountyHunt.BountyHunt
 commands:
@@ -10,3 +10,13 @@ commands:
   bountyboard:
     description: look at current bounties
     usage: /<command>
+  claimbounty:
+    description: claim a bounty is there is one for the player
+    usage: /<command>
+permissions:
+  bountyboard.use:
+    description: allows you to use bounty board
+    default: op
+  bounty.use:
+    description: grants you the ability to use the bounty command
+    default: true

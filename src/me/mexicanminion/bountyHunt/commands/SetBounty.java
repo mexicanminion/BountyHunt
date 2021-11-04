@@ -1,6 +1,7 @@
 package me.mexicanminion.bountyHunt.commands;
 
 import me.mexicanminion.bountyHunt.BountyHunt;
+import me.mexicanminion.bountyHunt.managers.CurrencyManager;
 import me.mexicanminion.bountyHunt.ui.BountyUI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -13,6 +14,7 @@ public class SetBounty implements CommandExecutor {
 
 
     private BountyHunt plugin;
+    private CurrencyManager manager = new CurrencyManager(plugin);
 
     public SetBounty(BountyHunt plugin){
         this.plugin = plugin;
@@ -34,7 +36,12 @@ public class SetBounty implements CommandExecutor {
             }else if(args.length == 1){
                 Player bountyPlayer = Bukkit.getPlayer(args[0]);
                 if(bountyPlayer != null){ //if online
-                    p.openInventory(BountyUI.GUI(bountyPlayer));
+                    if(manager.getPlayerCurrency(bountyPlayer) > 0){
+                        sender.sendMessage("Sorry, " + bountyPlayer.getDisplayName() + " already has a bounty on their head!");
+                    }else{
+                        p.openInventory(BountyUI.GUI(bountyPlayer));
+                        return true;
+                    }
                 }else{
                     sender.sendMessage("Player must be online to set a bounty");
                 }

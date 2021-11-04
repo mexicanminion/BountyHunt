@@ -1,6 +1,7 @@
 package me.mexicanminion.bountyHunt.ui;
 
 import me.mexicanminion.bountyHunt.BountyHunt;
+import me.mexicanminion.bountyHunt.managers.BountyManager;
 import me.mexicanminion.bountyHunt.managers.CurrencyManager;
 import me.mexicanminion.bountyHunt.utils.Utils;
 import org.bukkit.Bukkit;
@@ -16,7 +17,8 @@ public class BountyUI {
     public static int inv_rows = 4 * 9;
 
     private static BountyHunt plugin;
-    private static CurrencyManager manager = new CurrencyManager(plugin);
+    private static CurrencyManager currencyManager = new CurrencyManager(plugin);
+    private static BountyManager bountyManager= new BountyManager(plugin);
 
     private static Player bountyPlayer;
 
@@ -50,14 +52,15 @@ public class BountyUI {
                 //p.sendMessage(item.getType().toString());
                 if(item != null) {
                     if (item.getType() == Material.matchMaterial("diamond")) {
-                        manager.addCurrencyToPlayer(bountyPlayer, item.getAmount());
+                        currencyManager.addCurrencyToPlayer(bountyPlayer, item.getAmount());
+                        bountyManager.setPlayerBounty(bountyPlayer,bountyPlayer);
                         diamondTrue = true;
                     }
                 }
             }
             if(diamondTrue == true){
-                p.sendMessage(Utils.chat("Bounty set on " + bountyPlayer.getDisplayName() + " for a reward of " + manager.getPlayerCurrency(bountyPlayer)));
-                Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + manager.getPlayerCurrency(bountyPlayer));
+                p.sendMessage(Utils.chat("Bounty set on " + bountyPlayer.getDisplayName() + " for a reward of " + currencyManager.getPlayerCurrency(bountyPlayer)));
+                Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + currencyManager.getPlayerCurrency(bountyPlayer));
                 p.closeInventory();
             }else{
                 p.sendMessage(Utils.chat("Please Use Diamonds!!"));
