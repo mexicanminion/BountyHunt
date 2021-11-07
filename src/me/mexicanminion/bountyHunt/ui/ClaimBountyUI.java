@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClaimBountyUI {
 
     public static Inventory inv;
@@ -32,14 +35,20 @@ public class ClaimBountyUI {
     public static Inventory GUI(Player player){
 
         bountyPlayer = player;
+        int diamomnds = currencyManager.getPlayerCurrency(bountyPlayer);
+        List<Integer> diamondArray = new ArrayList<Integer>();
+
+        int diamondStacks = (int)diamomnds/64;
+        int diamondRemander = (int) diamomnds % 64;
+
+        for(int i = diamondStacks; i == 0; i--){
+            Utils.createItem(inv,"diamond", 64, 9-i, "Your prize!", "Drag to your inventory!");
+        }
+        Utils.createItem(inv,"diamond", diamondRemander, 10, "Your prize!", "Drag to your inventory!");
 
         Inventory toReturn = Bukkit.createInventory(null, inv_rows, inventory_name);
 
         Utils.createItem(inv,"dirt",1,23,"Click here to exit","This click is final");
-
-        int diamomnds = currencyManager.getPlayerCurrency(bountyPlayer);
-
-        Utils.createItem(inv,"diamond", diamomnds, 5, "Your prize!", "Drag to your inventory!");
 
         bountyManager.removeBounty(bountyPlayer);
         currencyManager.removeCurrencyFromPlayer(bountyPlayer,diamomnds);

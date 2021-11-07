@@ -3,27 +3,35 @@ package me.mexicanminion.bountyHunt.ui;
 import me.mexicanminion.bountyHunt.BountyHunt;
 import me.mexicanminion.bountyHunt.managers.BountyManager;
 import me.mexicanminion.bountyHunt.managers.CurrencyManager;
+import me.mexicanminion.bountyHunt.tasks.BountyTimer;
 import me.mexicanminion.bountyHunt.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitTask;
 
 public class BountyUI {
 
     public static Inventory inv;
     public static String inventory_name;
     public static int inv_rows = 4 * 9;
+    public static BukkitTask timer;
 
     private static BountyHunt plugin;
-    private static CurrencyManager currencyManager = new CurrencyManager(plugin);
-    private static BountyManager bountyManager= new BountyManager(plugin);
+    private static CurrencyManager currencyManager;// = new CurrencyManager(plugin);
+    private static BountyManager bountyManager; //= new BountyManager(plugin);
 
     private static Player bountyPlayer;
 
-    public static void initialize(){
+    public static void initialize(BountyHunt pluginInit){
+
+        plugin = pluginInit;
         inventory_name = Utils.chat("Place diamond bounty here");
+
+        currencyManager = new CurrencyManager(plugin);
+        bountyManager= new BountyManager(plugin);
 
         inv = Bukkit.createInventory(null, inv_rows);
     }
@@ -53,7 +61,7 @@ public class BountyUI {
                 if(item != null) {
                     if (item.getType() == Material.matchMaterial("diamond")) {
                         currencyManager.addCurrencyToPlayer(bountyPlayer, item.getAmount());
-                        bountyManager.setPlayerBounty(bountyPlayer,bountyPlayer);
+                        bountyManager.removeBounty(bountyPlayer);
                         diamondTrue = true;
                     }
                 }
@@ -61,6 +69,7 @@ public class BountyUI {
             if(diamondTrue == true){
                 p.sendMessage(Utils.chat("Bounty set on " + bountyPlayer.getDisplayName() + " for a reward of " + currencyManager.getPlayerCurrency(bountyPlayer)));
                 Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + currencyManager.getPlayerCurrency(bountyPlayer));
+                timer = new BountyTimer(plugin,bountyPlayer).runTaskLater(plugin,60*20L);// 60 sec * 20 ticks (20 ticks in 1 sec)
                 p.closeInventory();
             }else{
                 p.sendMessage(Utils.chat("Please Use Diamonds!!"));

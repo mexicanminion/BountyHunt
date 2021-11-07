@@ -29,6 +29,7 @@ public class BountyDeath implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player p = event.getEntity();
         Bukkit.broadcastMessage("event Handler for player death");
+        BountyUI.timer.cancel();
         if (p.getUniqueId() == bountyManager.getBounty(p)) {
             if(p.isDead()){
                 bountyManager.setPlayerBounty(p,p.getKiller());

@@ -1,5 +1,5 @@
 name: BountyHunt
-version: 1.0.6.3
+version: 1.0.7
 author: MexicanMinion
 main: me.mexicanminion.bountyHunt.BountyHunt
 commands:

@@ -40,7 +40,7 @@ public class BountyHunt extends JavaPlugin {
         new BountyManager(this);
         new InventoryClickListener(this);
         new BountyDeath(this);
-        BountyUI.initialize();
+        BountyUI.initialize(this);
         ClaimBountyUI.initialize();
         new SetBounty(this);
         new ClaimBounty(this);
