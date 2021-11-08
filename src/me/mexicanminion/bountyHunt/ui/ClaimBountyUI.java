@@ -38,13 +38,17 @@ public class ClaimBountyUI {
         int diamomnds = currencyManager.getPlayerCurrency(bountyPlayer);
         List<Integer> diamondArray = new ArrayList<Integer>();
 
-        int diamondStacks = (int)diamomnds/64;
+        int diamondStacks = diamomnds/64;
         int diamondRemander = (int) diamomnds % 64;
 
-        for(int i = diamondStacks; i == 0; i--){
-            Utils.createItem(inv,"diamond", 64, 9-i, "Your prize!", "Drag to your inventory!");
+        //fix how to spawn diamonds, this wont work. will give out wrong amounts
+        if(diamomnds > 64){
+            for(int i = diamondStacks; i == 0; i--){
+                Utils.createItem(inv,"diamond", 64, 9, "Your prize!", "Drag to your inventory!");
+            }
+        }else{
+            Utils.createItem(inv,"diamond", diamondRemander, 10, "Your prize!", "Drag to your inventory!");
         }
-        Utils.createItem(inv,"diamond", diamondRemander, 10, "Your prize!", "Drag to your inventory!");
 
         Inventory toReturn = Bukkit.createInventory(null, inv_rows, inventory_name);
 

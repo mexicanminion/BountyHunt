@@ -3,6 +3,7 @@ package me.mexicanminion.bountyHunt.managers;
 import me.mexicanminion.bountyHunt.BountyHunt;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.io.*;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class BountyManager {
 
     public BountyHunt plugin;
     public static HashMap<UUID, UUID> bounty = new HashMap<UUID, UUID>();
+    //private boolean isDead;
 
     public BountyManager(BountyHunt plugin){
         this.plugin = plugin;
@@ -69,11 +71,28 @@ public class BountyManager {
         bounty.put(bounterPlayer.getUniqueId(), bountier.getUniqueId());
     }
 
+    public UUID seeBounty(OfflinePlayer offPlayer){
+        if(bounty.get(offPlayer.getUniqueId()) == null){
+            return offPlayer.getUniqueId();
+        }else {
+            return null;
+        }
+    }
+
     public UUID getBounty(OfflinePlayer offPlayer){
         if(bounty.get(offPlayer.getUniqueId()) != null){
             return bounty.get(offPlayer.getUniqueId());
         }else {
             return null;
+        }
+    }
+
+
+    public boolean bountyDead(OfflinePlayer player){
+        if(getBounty(player) == null){
+            return false;
+        }else{
+            return true;
         }
     }
 }
