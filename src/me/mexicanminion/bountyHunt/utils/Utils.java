@@ -35,6 +35,18 @@ public class Utils {
         return  item;
     }
 
+    public static ItemStack createItemNoString(Inventory inv, String materialString, int amount, int invSlot){
+
+        ItemStack item;
+        List<String> lore = new ArrayList();
+
+        item = new ItemStack(Material.matchMaterial(materialString),amount);
+
+        inv.setItem(invSlot - 1, item);
+
+        return  item;
+    }
+
     public static ItemStack createItemByte(Inventory inv, String materialString, int byteId, int amount, int invSlot, String displayName, String... loreString){
 
         ItemStack item;

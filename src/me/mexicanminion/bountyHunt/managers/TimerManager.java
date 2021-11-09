@@ -75,10 +75,12 @@ public class TimerManager extends BukkitRunnable {
     public void run() {
 
         //this is untested
-        for (Player pl : Bukkit.getOnlinePlayers()) {
+        if(Bukkit.getOnlinePlayers().contains(player)) {
 
             //this works
-            if(pl == player){
+            //if(pl == player){
+                Bukkit.broadcastMessage(player.getDisplayName() + " is online");
+            Bukkit.broadcastMessage(Bukkit.getOnlinePlayers() + " test");
                 if(secondsLeft > 0 && !bountyManager.bountyDead(player)){
                     cooldown.put(player.getUniqueId(), coolDownTime);
                     secondsLeft--;
@@ -94,7 +96,12 @@ public class TimerManager extends BukkitRunnable {
                         this.cancel();
                     }
 
-                }            }
+                }
+            //}
+        }else{
+            Bukkit.broadcastMessage(player.getDisplayName() + " is not online");
+            Bukkit.broadcastMessage(Bukkit.getOnlinePlayers() + " test");
+            //Bukkit.getOnlinePlayers().
         }
 
 
