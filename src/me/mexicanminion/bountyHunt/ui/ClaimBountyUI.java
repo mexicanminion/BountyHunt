@@ -56,7 +56,7 @@ public class ClaimBountyUI {
 
         Inventory toReturn = Bukkit.createInventory(null, inv_rows, inventory_name);
 
-        Utils.createItem(inv,"dirt",1,23,"Click here to exit","This click is final");
+        Utils.createItem(inv,Material.RED_CONCRETE,1,32,"Click here to exit","This click is final");
 
         bountyManager.removeBounty(bountyPlayer.getUniqueId());
         currencyManager.removeCurrencyFromPlayer(bountyPlayer,diamomnds);
@@ -75,12 +75,10 @@ public class ClaimBountyUI {
             int itemInInv = 0;
             for(ItemStack item : stack) {
                 if (item != null) {
-                    if(item.getType() == Material.matchMaterial("dirt")){
-                        itemInInv++;
-                    }
+                    itemInInv++;
                 }
             }
-            if(itemInInv > 2){
+            if(itemInInv > 1){
                 p.sendMessage(Utils.chat("Please take out all items from inventory!!"));
             }else{
                 p.closeInventory();

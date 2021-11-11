@@ -15,12 +15,12 @@ public class Utils {
         return ChatColor.translateAlternateColorCodes('&',s);
     }
 
-    public static ItemStack createItem(Inventory inv, String materialString, int amount, int invSlot, String displayName, String... loreString){
+    public static ItemStack createItem(Inventory inv, Material material, int amount, int invSlot, String displayName, String... loreString){
 
         ItemStack item;
         List<String> lore = new ArrayList();
 
-        item = new ItemStack(Material.matchMaterial(materialString),amount);
+        item = new ItemStack(material,amount);
 
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(chat(displayName));

@@ -37,9 +37,8 @@ public class ClaimBounty implements CommandExecutor {
 
             if(Bukkit.getPlayer(args[0]) != null) {
                 bountyPlayer = Bukkit.getPlayer(args[0]);
-                if (bountyManager.getBounty(bountyPlayer.getUniqueId()) == p.getUniqueId()) {
+                if (bountyManager.getBounty(bountyPlayer.getUniqueId()).equals(p.getUniqueId())) {
                     p.openInventory(ClaimBountyUI.GUI(bountyPlayer));
-
                 }
             }
 

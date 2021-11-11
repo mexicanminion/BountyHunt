@@ -43,8 +43,8 @@ public class BountyUI {
 
         Inventory toReturn = Bukkit.createInventory(null, inv_rows, inventory_name);
 
-        Utils.createItem(inv,"dirt",1,22,"Click here to confirm","This click is final");
-        Utils.createItem(inv,"dirt",1,24,"Click here to cancel","This click is final");
+        Utils.createItem(inv,Material.LIME_CONCRETE,1,31,"Click here to confirm","This click is final");
+        Utils.createItem(inv,Material.RED_CONCRETE,1,33,"Click here to cancel","This click is final");
 
         toReturn.setContents(inv.getContents());
 
@@ -69,7 +69,13 @@ public class BountyUI {
             }
             if(diamondTrue == true){
                 p.sendMessage(Utils.chat("Bounty set on " + bountyPlayer.getDisplayName() + " for a reward of " + currencyManager.getPlayerCurrency(bountyPlayer)));
-                Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + currencyManager.getPlayerCurrency(bountyPlayer));
+                String bountyStringOne = "Bounty set on " + bountyPlayer.getDisplayName();
+                String bountyStringTwo = "For a reward of " + currencyManager.getPlayerCurrency(bountyPlayer);
+                for(Player player : Bukkit.getOnlinePlayers()){
+                    player.resetTitle();
+                    player.sendTitle(Utils.chat("&c" + bountyStringOne), Utils.chat("&c" + bountyStringTwo), 10, 40, 10);
+                }
+                //Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + currencyManager.getPlayerCurrency(bountyPlayer));
                 BukkitTask task = new TimerManager(plugin,bountyPlayer, bountyPlayer.getUniqueId()).runTaskTimer(plugin,10L,20L);
                 p.closeInventory();
             }else{
@@ -78,14 +84,15 @@ public class BountyUI {
         }else if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.chat("Click here to cancel"))){
             boolean itemInInv = false;
             for(ItemStack item : stack) {
-                if (item != null) {
+                if (item != null && (!item.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.chat("Click here to confirm")) &&
+                                     !item.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.chat("Click here to cancel")))) {
                     itemInInv = true;
                 }
             }
             if(itemInInv == true){
                 p.sendMessage(Utils.chat("Please take out all items from inventory!!"));
             }else{
-                p.sendMessage(Utils.chat("GUI Closed"));
+                //p.sendMessage(Utils.chat("GUI Closed"));
                 p.closeInventory();
             }
 

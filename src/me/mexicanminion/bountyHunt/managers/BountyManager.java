@@ -69,6 +69,7 @@ public class BountyManager {
 
     public void setPlayerBounty(UUID bounterPlayer, UUID bountier){
         bounty.put(bounterPlayer, bountier);
+        //Bukkit.broadcastMessage("BOunty set for " + bountier + " from " + bounterPlayer);
     }
 
     public UUID seeBounty(UUID offPlayer){

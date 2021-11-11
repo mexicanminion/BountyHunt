@@ -20,7 +20,7 @@ public class TimerManager extends BukkitRunnable {
     private OnlineManager onlineManager;
     public Player player;
     private UUID playerUUID;
-    private int coolDownTime = 20;//seconds
+    private int coolDownTime = 2*60*60;//hours * mins * seconds
     private int secondsLeft = 0;
 
     public TimerManager(BountyHunt plugin, Player p, UUID playerUUID){
@@ -89,7 +89,7 @@ public class TimerManager extends BukkitRunnable {
             //Bukkit.broadcastMessage(Bukkit.getOnlinePlayers() + " test");
             //this works
             if(onlineManager.getOnline(playerUUID)){
-                Bukkit.broadcastMessage(playerUUID + " is online");
+                //Bukkit.broadcastMessage(playerUUID + " is online");
                 if(secondsLeft > 0 && !bountyManager.bountyDead(playerUUID)){
                     cooldown.put(playerUUID, coolDownTime);
                     secondsLeft--;
@@ -97,19 +97,19 @@ public class TimerManager extends BukkitRunnable {
                 }else{
                     if(secondsLeft <= 0){
                         bountyManager.setPlayerBounty(playerUUID,playerUUID);
-                        Bukkit.broadcastMessage("Bounty has passed for player " + playerUUID);
+                        Bukkit.broadcastMessage("Bounty has passed for player " + player.getDisplayName());
                         player.sendMessage("Claim your bouinty");
                         this.cancel();
                     }else if(bountyManager.bountyDead(playerUUID)){
-                        Bukkit.broadcastMessage("timer stop/ player died");
+                        //Bukkit.broadcastMessage("timer stop/ player died");
                         this.cancel();
                     }
 
                 }
-            }else{
-                Bukkit.broadcastMessage(playerUUID + " is not online");
+            }//else{
+                //Bukkit.broadcastMessage(playerUUID + " is not online");
                 //Bukkit.getOnlinePlayers().
-            }
+            //}
 
         //}
 

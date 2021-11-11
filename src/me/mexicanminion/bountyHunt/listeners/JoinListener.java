@@ -31,7 +31,7 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent join){
 
         UUID p = join.getPlayer().getUniqueId();
-        Bukkit.broadcastMessage("player joined");
+        //Bukkit.broadcastMessage("player joined");
 
         if(onlineManager.getOnline(p)){
             onlineManager.addOnline(p);
@@ -46,7 +46,7 @@ public class JoinListener implements Listener {
     public void onLeave(PlayerQuitEvent quit){
 
         UUID p = quit.getPlayer().getUniqueId();
-        Bukkit.broadcastMessage("player left");
+        //Bukkit.broadcastMessage("player left");
 
         onlineManager.removeOnline(p);
 
