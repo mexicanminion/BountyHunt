@@ -28,10 +28,10 @@ public class BountyDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player p = event.getEntity();
-        Bukkit.broadcastMessage("event Handler for player death");
-        if (p.getUniqueId() == bountyManager.seeBounty(p)) {
+        //Bukkit.broadcastMessage("event Handler for player death");
+        if (p.getUniqueId() == bountyManager.seeBounty(p.getUniqueId())) {
             if(p.isDead()){
-                bountyManager.setPlayerBounty(p,p.getKiller());
+                bountyManager.setPlayerBounty(p.getUniqueId(),p.getKiller().getUniqueId());
                 Bukkit.broadcastMessage(p.getKiller().getDisplayName() + " killed " + p.getDisplayName() + " and claimed their bounty!!");
                 p.getKiller().sendMessage(Utils.chat("To Claim, type /claimbounty"));
             }

@@ -41,7 +41,7 @@ public class ClaimBountyUI {
         int diamondStacks = diamomnds/64;
         int diamondRemander = diamomnds % 64;
 
-        Bukkit.broadcastMessage("diamond stacks" + diamondStacks);
+        //Bukkit.broadcastMessage("diamond stacks" + diamondStacks);
 
         int space = 1;
 
@@ -58,7 +58,7 @@ public class ClaimBountyUI {
 
         Utils.createItem(inv,"dirt",1,23,"Click here to exit","This click is final");
 
-        bountyManager.removeBounty(bountyPlayer);
+        bountyManager.removeBounty(bountyPlayer.getUniqueId());
         currencyManager.removeCurrencyFromPlayer(bountyPlayer,diamomnds);
 
         toReturn.setContents(inv.getContents());

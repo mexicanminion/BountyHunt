@@ -17,18 +17,28 @@ public class TimerManager extends BukkitRunnable {
     private BountyManager bountyManager;
     private HashMap<UUID, Integer> cooldown = new HashMap<UUID, Integer>();
     private BountyHunt plugin;
-    private Player player;
+    private OnlineManager onlineManager;
+    public Player player;
+    private UUID playerUUID;
     private int coolDownTime = 20;//seconds
     private int secondsLeft = 0;
 
-    public TimerManager(BountyHunt plugin, Player p){
+    public TimerManager(BountyHunt plugin, Player p, UUID playerUUID){
         this.plugin = plugin;
+        onlineManager = new OnlineManager(plugin);
         player = p;
+        this.playerUUID = playerUUID;
         bountyManager = new BountyManager(plugin);
         if(player != null) {
             cooldown.put(player.getUniqueId(),coolDownTime);
             secondsLeft = coolDownTime;
         }
+    }
+
+    public TimerManager(BountyHunt plugin){
+        this.plugin = plugin;
+        bountyManager = new BountyManager(plugin);
+
     }
 
     public void saveTimerFile() throws FileNotFoundException, IOException {
@@ -75,34 +85,33 @@ public class TimerManager extends BukkitRunnable {
     public void run() {
 
         //this is untested
-        if(Bukkit.getOnlinePlayers().contains(player)) {
-
+        //for (Player pl : Bukkit.getOnlinePlayers()) {
+            //Bukkit.broadcastMessage(Bukkit.getOnlinePlayers() + " test");
             //this works
-            //if(pl == player){
-                Bukkit.broadcastMessage(player.getDisplayName() + " is online");
-            Bukkit.broadcastMessage(Bukkit.getOnlinePlayers() + " test");
-                if(secondsLeft > 0 && !bountyManager.bountyDead(player)){
-                    cooldown.put(player.getUniqueId(), coolDownTime);
+            if(onlineManager.getOnline(playerUUID)){
+                Bukkit.broadcastMessage(playerUUID + " is online");
+                if(secondsLeft > 0 && !bountyManager.bountyDead(playerUUID)){
+                    cooldown.put(playerUUID, coolDownTime);
                     secondsLeft--;
                     coolDownTime = secondsLeft;
                 }else{
                     if(secondsLeft <= 0){
-                        bountyManager.setPlayerBounty(player,player);
-                        Bukkit.broadcastMessage("Bounty has passed for player " + player.getDisplayName());
+                        bountyManager.setPlayerBounty(playerUUID,playerUUID);
+                        Bukkit.broadcastMessage("Bounty has passed for player " + playerUUID);
                         player.sendMessage("Claim your bouinty");
                         this.cancel();
-                    }else if(bountyManager.bountyDead(player)){
+                    }else if(bountyManager.bountyDead(playerUUID)){
                         Bukkit.broadcastMessage("timer stop/ player died");
                         this.cancel();
                     }
 
                 }
-            //}
-        }else{
-            Bukkit.broadcastMessage(player.getDisplayName() + " is not online");
-            Bukkit.broadcastMessage(Bukkit.getOnlinePlayers() + " test");
-            //Bukkit.getOnlinePlayers().
-        }
+            }else{
+                Bukkit.broadcastMessage(playerUUID + " is not online");
+                //Bukkit.getOnlinePlayers().
+            }
+
+        //}
 
 
         //bountyManager.setPlayerBounty(player,player);

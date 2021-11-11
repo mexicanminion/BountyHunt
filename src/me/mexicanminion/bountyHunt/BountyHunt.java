@@ -5,8 +5,10 @@ import me.mexicanminion.bountyHunt.commands.ClaimBounty;
 import me.mexicanminion.bountyHunt.commands.SetBounty;
 import me.mexicanminion.bountyHunt.listeners.BountyDeath;
 import me.mexicanminion.bountyHunt.listeners.InventoryClickListener;
+import me.mexicanminion.bountyHunt.listeners.JoinListener;
 import me.mexicanminion.bountyHunt.managers.BountyManager;
 import me.mexicanminion.bountyHunt.managers.CurrencyManager;
+import me.mexicanminion.bountyHunt.managers.OnlineManager;
 import me.mexicanminion.bountyHunt.managers.TimerManager;
 import me.mexicanminion.bountyHunt.ui.BountyUI;
 import me.mexicanminion.bountyHunt.ui.ClaimBountyUI;
@@ -37,21 +39,33 @@ public class BountyHunt extends JavaPlugin {
         }
 
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Timer manager files");
-        TimerManager timerManager = new TimerManager(this,null);
+        TimerManager timerManager = new TimerManager(this,null,null);
         try {
             timerManager.loadTimerFile();
         } catch (ClassNotFoundException | IOException e){
             e.printStackTrace();
         }
 
-        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Commands init");
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Online manager files");
+        OnlineManager onlineManager = new OnlineManager(this);
+        try {
+            onlineManager.loadOnlineFile();
+        } catch (ClassNotFoundException | IOException e){
+            e.printStackTrace();
+        }
+
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Managers init");
         new CurrencyManager(this);
         new BountyManager(this);
-        new TimerManager(this, null);
+        new TimerManager(this);
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Listeners init");
         new InventoryClickListener(this);
+        new JoinListener(this);
         new BountyDeath(this);
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; GUI init");
         BountyUI.initialize(this);
         ClaimBountyUI.initialize();
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Commands init");
         new SetBounty(this);
         new ClaimBounty(this);
         new BountyBoard(this);
@@ -76,7 +90,7 @@ public class BountyHunt extends JavaPlugin {
             e.printStackTrace();
         }
 
-        TimerManager timerManager = new TimerManager(this, null);
+        TimerManager timerManager = new TimerManager(this, null, null);
         try {
             timerManager.saveTimerFile();
         } catch (IOException e){

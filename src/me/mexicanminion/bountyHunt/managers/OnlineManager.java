@@ -3,7 +3,6 @@ package me.mexicanminion.bountyHunt.managers;
 import me.mexicanminion.bountyHunt.BountyHunt;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import java.io.*;
 import java.util.HashMap;
@@ -11,17 +10,17 @@ import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-public class BountyManager {
+public class OnlineManager {
 
     public BountyHunt plugin;
-    public static HashMap<UUID, UUID> bounty = new HashMap<UUID, UUID>();
+    public static HashMap<UUID, UUID> online = new HashMap<UUID, UUID>();
     //private boolean isDead;
 
-    public BountyManager(BountyHunt plugin){
+    public OnlineManager(BountyHunt plugin){
         this.plugin = plugin;
     }
 
-    public void saveBountyFile() throws FileNotFoundException, IOException {
+    public void saveOnlineFile() throws FileNotFoundException, IOException {
 
         for(OfflinePlayer offPlayer : Bukkit.getOfflinePlayers()) {
             File file = new File("BountyCurrency/bounty.dat");
@@ -31,7 +30,7 @@ public class BountyManager {
             UUID uuid = offPlayer.getUniqueId();
 
             try{
-                output.writeObject(bounty);
+                output.writeObject(online);
                 output.flush();
                 output.close();
             } catch(IOException e){
@@ -41,7 +40,7 @@ public class BountyManager {
 
     }
 
-    public void loadBountyFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void loadOnlineFile() throws FileNotFoundException, IOException, ClassNotFoundException {
         File file = new File("BountyCurrency/bounty.dat");
         if(file != null){
             ObjectInputStream input = new ObjectInputStream(new GZIPInputStream(new FileInputStream(file)));
@@ -52,47 +51,39 @@ public class BountyManager {
                 throw new IOException("Data is not a HashMap");
             }
 
-            bounty = (HashMap<UUID, UUID>) readObject;
-            for(UUID key : bounty.keySet()){
-                bounty.put(key, bounty.get(key));
+            online = (HashMap<UUID, UUID>) readObject;
+            for(UUID key : online.keySet()){
+                online.put(key, online.get(key));
             }
 
         }
 
     }
 
-    public void removeBounty(UUID bountyPlayer){
-        if(bounty.get(bountyPlayer) != null){
-            bounty.put(bountyPlayer, null);
+    public void addOnline(UUID player){
+        if(online.get(player) == null){
+            online.put(player, player);
         }
     }
 
-    public void setPlayerBounty(UUID bounterPlayer, UUID bountier){
-        bounty.put(bounterPlayer, bountier);
-    }
-
-    public UUID seeBounty(UUID offPlayer){
-        if(bounty.get(offPlayer) == null){
-            return offPlayer;
-        }else{
-            return null;
+    public void removeOnline(UUID player){
+        if(online.get(player) != null){
+            online.put(player, null);
         }
     }
 
-    public UUID getBounty(UUID offPlayer){
-        if(bounty.get(offPlayer) != null){
-            return bounty.get(offPlayer);
-        }else {
-            return null;
-        }
+    public void setOnline(UUID player){
+        online.put(player, player);
     }
 
 
-    public boolean bountyDead(UUID player){
-        if(getBounty(player) == null){
-            return false;
-        }else{
+    public boolean getOnline(UUID offPlayer){
+        if(online.get(offPlayer) != null){
             return true;
+        }else{
+            return false;
         }
     }
+
+
 }

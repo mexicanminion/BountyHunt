@@ -32,7 +32,7 @@ public class BountyUI {
 
         currencyManager = new CurrencyManager(plugin);
         bountyManager= new BountyManager(plugin);
-        timerManager = new TimerManager(plugin, bountyPlayer);
+        timerManager = new TimerManager(plugin);//,bountyPlayer, bountyPlayer.getUniqueId());
 
         inv = Bukkit.createInventory(null, inv_rows);
     }
@@ -62,7 +62,7 @@ public class BountyUI {
                 if(item != null) {
                     if (item.getType() == Material.matchMaterial("diamond")) {
                         currencyManager.addCurrencyToPlayer(bountyPlayer, item.getAmount());
-                        bountyManager.removeBounty(bountyPlayer);
+                        bountyManager.removeBounty(bountyPlayer.getUniqueId());
                         diamondTrue = true;
                     }
                 }
@@ -70,7 +70,7 @@ public class BountyUI {
             if(diamondTrue == true){
                 p.sendMessage(Utils.chat("Bounty set on " + bountyPlayer.getDisplayName() + " for a reward of " + currencyManager.getPlayerCurrency(bountyPlayer)));
                 Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + currencyManager.getPlayerCurrency(bountyPlayer));
-                BukkitTask task = new TimerManager(plugin,bountyPlayer).runTaskTimer(plugin,10L,20L);
+                BukkitTask task = new TimerManager(plugin,bountyPlayer, bountyPlayer.getUniqueId()).runTaskTimer(plugin,10L,20L);
                 p.closeInventory();
             }else{
                 p.sendMessage(Utils.chat("Please Use Diamonds!!"));
