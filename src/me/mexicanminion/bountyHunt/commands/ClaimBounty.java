@@ -40,6 +40,8 @@ public class ClaimBounty implements CommandExecutor {
                 if (bountyManager.getBounty(bountyPlayer.getUniqueId()).equals(p.getUniqueId())) {
                     p.openInventory(ClaimBountyUI.GUI(bountyPlayer));
                 }
+            }else{
+                sender.sendMessage("/claimbounty <player>");
             }
 
             return true;

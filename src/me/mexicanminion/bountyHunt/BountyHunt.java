@@ -1,6 +1,7 @@
 package me.mexicanminion.bountyHunt;
 
 import me.mexicanminion.bountyHunt.commands.BountyBoard;
+import me.mexicanminion.bountyHunt.commands.FixBounty;
 import me.mexicanminion.bountyHunt.commands.ClaimBounty;
 import me.mexicanminion.bountyHunt.commands.SetBounty;
 import me.mexicanminion.bountyHunt.listeners.BountyDeath;
@@ -68,6 +69,7 @@ public class BountyHunt extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; Commands init");
         new SetBounty(this);
         new ClaimBounty(this);
+        new FixBounty(this);
         new BountyBoard(this);
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin is on, Enjoy hunting!");
     }

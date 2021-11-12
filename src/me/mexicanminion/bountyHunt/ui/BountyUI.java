@@ -73,7 +73,7 @@ public class BountyUI {
                 String bountyStringTwo = "For a reward of " + currencyManager.getPlayerCurrency(bountyPlayer);
                 for(Player player : Bukkit.getOnlinePlayers()){
                     player.resetTitle();
-                    player.sendTitle(Utils.chat("&c" + bountyStringOne), Utils.chat("&c" + bountyStringTwo), 10, 40, 10);
+                    player.sendTitle(Utils.chat("&4" + bountyStringOne), Utils.chat("&c" + bountyStringTwo), 10, 40, 10);
                 }
                 //Bukkit.broadcastMessage(p.getDisplayName() + " set a bounty on " + bountyPlayer.getDisplayName() + " for " + currencyManager.getPlayerCurrency(bountyPlayer));
                 BukkitTask task = new TimerManager(plugin,bountyPlayer, bountyPlayer.getUniqueId()).runTaskTimer(plugin,10L,20L);

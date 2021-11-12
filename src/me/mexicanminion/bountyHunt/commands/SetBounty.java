@@ -36,11 +36,15 @@ public class SetBounty implements CommandExecutor {
             }else if(args.length == 1){
                 Player bountyPlayer = Bukkit.getPlayer(args[0]);
                 if(bountyPlayer != null){ //if online
-                    if(manager.getPlayerCurrency(bountyPlayer) > 0){
-                        sender.sendMessage("Sorry, " + bountyPlayer.getDisplayName() + " already has a bounty on their head!");
+                    if(!bountyPlayer.getUniqueId().equals(p.getUniqueId())) {
+                        if (manager.getPlayerCurrency(bountyPlayer) > 0) {
+                            sender.sendMessage("Sorry, " + bountyPlayer.getDisplayName() + " already has a bounty on their head!");
+                        } else {
+                            p.openInventory(BountyUI.GUI(bountyPlayer));
+                            return true;
+                        }
                     }else{
-                        p.openInventory(BountyUI.GUI(bountyPlayer));
-                        return true;
+                        sender.sendMessage("You cant sent a bounty on your own head silly");
                     }
                 }else{
                     sender.sendMessage("Player must be online to set a bounty");

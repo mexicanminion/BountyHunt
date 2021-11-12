@@ -119,12 +119,7 @@ public class TimerManager extends BukkitRunnable {
         //player.sendMessage("Claim your bouinty");
     }
 
-    /*public void startTimer(Player player){
-        cooldown.put(player.getUniqueId(),System.currentTimeMillis());
-        secondsLeft = ((cooldown.get(player.getUniqueId()) / 1000) + coolDownTime) - (System.currentTimeMillis() / 1000);
-    }
-
-    public Long getTimer(Player player){
+    public Integer getTimer(Player player){
 
         if(cooldown.get(player.getUniqueId()) != null){
             return cooldown.get(player.getUniqueId());
@@ -133,25 +128,5 @@ public class TimerManager extends BukkitRunnable {
         }
 
     }
-
-    public void updateTimer(Player player){
-        if(cooldown.containsKey(player.getUniqueId())){
-            secondsLeft = ((cooldown.get(player.getUniqueId()) / 1000) + coolDownTime) - (System.currentTimeMillis() / 1000);
-            // do time stuff
-        } else {
-            cooldown.put(player.getUniqueId(),System.currentTimeMillis());
-        }
-    }
-
-    public Long secondsLeft(Player player){
-        if(cooldown.containsKey(player.getUniqueId())){
-            secondsLeft = ((cooldown.get(player.getUniqueId()) / 1000) + coolDownTime) - (System.currentTimeMillis() / 1000);
-            return secondsLeft;
-        }else {
-            return 0L;
-        }
-    }
-    */
-
 
 }

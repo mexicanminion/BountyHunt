@@ -1,5 +1,5 @@
 name: BountyHunt
-version: 1.1
+version: 1.2
 author: MexicanMinion
 main: me.mexicanminion.bountyHunt.BountyHunt
 api-version: 1.17
@@ -7,9 +7,11 @@ commands:
   setbounty:
     description: use to set a bounty, opens bounty
     usage: /<command>
-    aliases: bountyset
   bountyboard:
     description: look at current bounties
+    usage: /<command>
+  fixbounty:
+    description: allows op's to fix the bounty bored
     usage: /<command>
   claimbounty:
     description: claim a bounty is there is one for the player
@@ -17,6 +19,9 @@ commands:
 permissions:
   bountyboard.use:
     description: allows you to use bounty board
+    default: true
+  bountyboard.fix:
+    description: allows op's to fix the bounty bored
     default: op
   bounty.use:
     description: grants you the ability to use the bounty command
