@@ -36,8 +36,8 @@ public class BountyBoard implements CommandExecutor {
         if(p.hasPermission("bountyboard.use")){
             p.sendMessage(Utils.chat("&2Players with bounties online"));
             for(Player player : Bukkit.getOnlinePlayers()){
-                if(bountyManager.getBounty(player.getUniqueId()) != null) {
-                    p.sendMessage(Utils.chat("&c" + player.getDisplayName() + " for " + currencyManager.getPlayerCurrency(player) + " diamonds with (time)" + timerManager.getTimer(player) + "left"));
+                if((bountyManager.seeBounty(player.getUniqueId()) != null) && currencyManager.getPlayerCurrency(player) > 0) {
+                    p.sendMessage(Utils.chat("&c" + player.getDisplayName() + " for " + currencyManager.getPlayerCurrency(player) + " diamonds with (time)" + timerManager.getTimer(player) + " left"));
                 }
             }
 
