@@ -26,11 +26,6 @@ public class BountyBoard implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (!(sender instanceof Player)){
-            sender.sendMessage("Only players can send this command!");
-            return true;
-        }
-
         Player p = (Player) sender;
 
         if(p.hasPermission("bountyboard.use")){

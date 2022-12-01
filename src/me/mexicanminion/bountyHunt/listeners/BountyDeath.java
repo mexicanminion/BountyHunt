@@ -29,6 +29,9 @@ public class BountyDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         //Bukkit.broadcastMessage("event Handler for player death");
+        if(event.getEntity().getKiller().getType() == null){
+            return;
+        }
         if(event.getEntity().getKiller().getType() == EntityType.PLAYER){
             Player p = event.getEntity();
             //Bukkit.broadcastMessage("player was killed by player");

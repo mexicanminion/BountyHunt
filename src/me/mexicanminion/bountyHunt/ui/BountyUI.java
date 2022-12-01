@@ -51,7 +51,15 @@ public class BountyUI {
         return toReturn;
     }
 
-    public static void clicked(Player p, int slot, ItemStack clicked, Inventory inv){
+    /**
+     *
+     * @param p
+     * @param slot
+     * @param clicked
+     * @param inv
+     * @return true when incorrect click, false when correct click
+     */
+    public static boolean clicked(Player p, int slot, ItemStack clicked, Inventory inv){
 
         ItemStack[] stack  = inv.getContents();
 
@@ -80,6 +88,7 @@ public class BountyUI {
                 p.closeInventory();
             }else{
                 p.sendMessage(Utils.chat("Please Use Diamonds!!"));
+                return true;
             }
         }else if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.chat("Click here to cancel"))){
             boolean itemInInv = false;
@@ -91,12 +100,14 @@ public class BountyUI {
             }
             if(itemInInv == true){
                 p.sendMessage(Utils.chat("Please take out all items from inventory!!"));
+                return true;
             }else{
                 //p.sendMessage(Utils.chat("GUI Closed"));
                 p.closeInventory();
             }
 
         }
+        return false;
     }
 
 }

@@ -24,19 +24,13 @@ public class InventoryClickListener implements Listener {
         String title = e.getView().getTitle();
         if(title.equals(BountyUI.inventory_name)){
             e.setCancelled(false);
-            if(e.getCurrentItem() == null){
-                return;
-            }
-            if(title.equals(BountyUI.inventory_name)){
-                BountyUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory());
+            if(e.getCurrentItem() != null){
+                e.setCancelled(BountyUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory()));
             }
         }else if(title.equals(ClaimBountyUI.inventory_name)){
             e.setCancelled(false);
-            if(e.getCurrentItem() == null){
-                return;
-            }
-            if(title.equals(ClaimBountyUI.inventory_name)){
-                ClaimBountyUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory());
+            if(e.getCurrentItem() != null){
+                e.setCancelled(ClaimBountyUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory()));
             }
         }
     }

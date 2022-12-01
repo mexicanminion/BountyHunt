@@ -23,6 +23,8 @@ public class ClaimBountyUI {
     private static CurrencyManager currencyManager = new CurrencyManager(plugin);
     private static BountyManager bountyManager= new BountyManager(plugin);
 
+    static int diamomnds;
+
 
     private static Player bountyPlayer;
 
@@ -35,7 +37,7 @@ public class ClaimBountyUI {
     public static Inventory GUI(Player player){
 
         bountyPlayer = player;
-        int diamomnds = currencyManager.getPlayerCurrency(bountyPlayer);
+        diamomnds = currencyManager.getPlayerCurrency(bountyPlayer);
         //List<Integer> diamondArray = new ArrayList<Integer>();
 
         int diamondStacks = diamomnds/64;
@@ -45,7 +47,7 @@ public class ClaimBountyUI {
 
         int space = 1;
 
-        //fix how to spawn diamonds, this wont work. will give out wrong amounts
+        //fix how to spawn diamonds, this wont work. will give out wrong amounts(UPDATE, idk how old this is, it seems to work as of 11/21/22, keeping this comment for future refrence)
         if(diamondStacks > 0){
             for(int i = diamondStacks; i >= 1; i--){
                 Utils.createItemNoString(inv,"diamond", 64, space);
@@ -58,15 +60,12 @@ public class ClaimBountyUI {
 
         Utils.createItem(inv,Material.RED_CONCRETE,1,32,"Click here to exit","This click is final");
 
-        bountyManager.removeBounty(bountyPlayer.getUniqueId());
-        currencyManager.removeCurrencyFromPlayer(bountyPlayer,diamomnds);
-
         toReturn.setContents(inv.getContents());
 
         return toReturn;
     }
 
-    public static void clicked(Player p, int slot, ItemStack clicked, Inventory inv){
+    public static boolean clicked(Player p, int slot, ItemStack clicked, Inventory inv){
 
         ItemStack[] stack  = inv.getContents();
 
@@ -80,12 +79,18 @@ public class ClaimBountyUI {
             }
             if(itemInInv > 1){
                 p.sendMessage(Utils.chat("Please take out all items from inventory!!"));
+                return true;
             }else{
+                bountyManager.removeBounty(bountyPlayer.getUniqueId());
+                currencyManager.removeCurrencyFromPlayer(bountyPlayer,diamomnds);
                 p.closeInventory();
             }
 
+        }else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.chat("Diamond"))){
 
         }
+        return false;
+
     }
 
 }

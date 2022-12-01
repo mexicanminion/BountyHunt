@@ -47,23 +47,23 @@ public class FixBounty implements CommandExecutor {
                 if(args[0].equalsIgnoreCase("add")){
                     if(offPlayer != null){
                         manager.addCurrencyToPlayer(offPlayer, amount);
-                        sender.sendMessage("&aYou added " + args[2], " to player " + offPlayer.getName());
+                        sender.sendMessage("&aYou added " + args[2] + " to player " + offPlayer.getName());
                     } else {
-                        sender.sendMessage("&eplayer " + args[1], "&ecould not be found");
+                        sender.sendMessage("&eplayer " + args[1] + "&ecould not be found");
                     }
                 } else if(args[0].equalsIgnoreCase("remove")){
                     if(offPlayer != null){
                         manager.removeCurrencyFromPlayer(offPlayer, amount);
-                        sender.sendMessage("&aYou removed " + args[2], " to player " + offPlayer.getName());
+                        sender.sendMessage("&aYou removed " + args[2] + " to player " + offPlayer.getName());
                     } else {
-                        sender.sendMessage("&eplayer " + args[1], "&ecould not be found");
+                        sender.sendMessage("&eplayer " + args[1] + "&ecould not be found");
                     }
                 } else if(args[0].equalsIgnoreCase("set")){
                     if(offPlayer != null){
                         manager.setPlayerCurrency(offPlayer, amount);
-                        sender.sendMessage("&aYou set " + offPlayer.getName(), " to " + args[1]);
+                        sender.sendMessage("&aYou set " + offPlayer.getName() + " to " + args[1]);
                     } else {
-                        sender.sendMessage("&eplayer " + args[1], "&ecould not be found");
+                        sender.sendMessage("&eplayer " + args[1] + "&ecould not be found");
                     }
                 }
             }
