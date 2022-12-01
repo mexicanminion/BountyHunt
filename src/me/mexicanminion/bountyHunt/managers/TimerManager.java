@@ -44,7 +44,9 @@ public class TimerManager extends BukkitRunnable {
     public void saveTimerFile() throws FileNotFoundException, IOException {
 
         for(OfflinePlayer offPlayer : Bukkit.getOfflinePlayers()) {
-            File file = new File("BountyCurrency/timer.dat");
+            //File file = new File("BountyCurrency/timer.dat");
+            File file = new File(plugin.getDataFolder() + "/timer.dat");
+
 
             ObjectOutputStream output = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(file)));
 
@@ -62,7 +64,9 @@ public class TimerManager extends BukkitRunnable {
     }
 
     public void loadTimerFile() throws FileNotFoundException, IOException, ClassNotFoundException {
-        File file = new File("BountyCurrency/timer.dat");
+        //File file = new File("BountyCurrency/timer.dat");
+        File file = new File(plugin.getDataFolder() + "/timer.dat");
+
         if(file != null){
             ObjectInputStream input = new ObjectInputStream(new GZIPInputStream(new FileInputStream(file)));
             Object readObject = input.readObject();

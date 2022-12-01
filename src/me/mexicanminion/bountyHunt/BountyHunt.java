@@ -1,5 +1,7 @@
 package me.mexicanminion.bountyHunt;
 
+import java.io.File;
+
 import me.mexicanminion.bountyHunt.commands.BountyBoard;
 import me.mexicanminion.bountyHunt.commands.FixBounty;
 import me.mexicanminion.bountyHunt.commands.ClaimBounty;
@@ -22,6 +24,26 @@ public class BountyHunt extends JavaPlugin {
 
     @Override
     public void onEnable(){
+
+        String path = this.getDataFolder().getPath() + File.separator;
+
+        try {
+            boolean exists = (new File(path)).exists();
+            if (!exists) {
+                new File(path).mkdir();
+            }
+            CurrencyManager currencyManager = new CurrencyManager(this);
+            BountyManager bountyManager = new BountyManager(this);
+            TimerManager timerManager = new TimerManager(this,null,null);
+            OnlineManager onlineManager = new OnlineManager(this);
+            currencyManager.saveCurrencyFile();
+            bountyManager.saveBountyFile();
+            timerManager.saveTimerFile();
+            onlineManager.saveOnlineFile();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; currency manager files");
         CurrencyManager currencyManager = new CurrencyManager(this);

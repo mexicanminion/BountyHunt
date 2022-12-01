@@ -24,7 +24,7 @@ public class BountyManager {
     public void saveBountyFile() throws FileNotFoundException, IOException {
 
         for(OfflinePlayer offPlayer : Bukkit.getOfflinePlayers()) {
-            File file = new File("BountyCurrency/bounty.dat");
+            File file = new File(plugin.getDataFolder() + "/bounty.dat");
 
             ObjectOutputStream output = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(file)));
 
@@ -42,7 +42,9 @@ public class BountyManager {
     }
 
     public void loadBountyFile() throws FileNotFoundException, IOException, ClassNotFoundException {
-        File file = new File("BountyCurrency/bounty.dat");
+        //File file = new File("plugins/BountyCurrency/bounty.dat");
+        File file = new File(plugin.getDataFolder() + "/bounty.dat");
+
         if(file != null){
             ObjectInputStream input = new ObjectInputStream(new GZIPInputStream(new FileInputStream(file)));
             Object readObject = input.readObject();

@@ -22,7 +22,8 @@ public class CurrencyManager {
     public void saveCurrencyFile() throws FileNotFoundException, IOException {
 
         for(OfflinePlayer offPlayer : Bukkit.getOfflinePlayers()) {
-            File file = new File("BountyCurrency/curency.dat");
+            //File file = new File("BountyCurrency/curency.dat");
+            File file = new File(plugin.getDataFolder() + "/curency.dat");
 
             ObjectOutputStream output = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(file)));
 
@@ -40,7 +41,8 @@ public class CurrencyManager {
     }
 
     public void loadCurrencyFile() throws FileNotFoundException, IOException, ClassNotFoundException {
-        File file = new File("BountyCurrency/curency.dat");
+        //File file = new File("BountyCurrency/curency.dat");
+        File file = new File(plugin.getDataFolder() + "/curency.dat");
         if(file != null){
             ObjectInputStream input = new ObjectInputStream(new GZIPInputStream(new FileInputStream(file)));
             Object readObject = input.readObject();
