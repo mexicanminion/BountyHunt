@@ -25,6 +25,11 @@ public class BountyHunt extends JavaPlugin {
     @Override
     public void onEnable(){
 
+        int pluginId = 16986; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
+        // Optional: Add custom charts
+        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
+
         String path = this.getDataFolder().getPath() + File.separator;
 
         try {
