@@ -122,7 +122,7 @@ public class TimerManager extends BukkitRunnable {
         //player.sendMessage("Claim your bouinty");
     }
 
-    public Integer getTimer(Player player){
+    public int getTimer(UUID playerUUID){
 
         /*if(cooldown.get(player.getUniqueId()) != null){
             return cooldown.get(player.getUniqueId());
@@ -131,7 +131,7 @@ public class TimerManager extends BukkitRunnable {
         }
          */
 
-        return cooldown.get(player.getUniqueId());
+        return (int) cooldown.get(playerUUID);
     }
 
 }

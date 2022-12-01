@@ -25,6 +25,7 @@ public class BountyHunt extends JavaPlugin {
     @Override
     public void onEnable(){
 
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[Bounty Hunt]: Plugin init; bStats");
         int pluginId = 16986; // <-- Replace with the id of your plugin!
         Metrics metrics = new Metrics(this, pluginId);
         // Optional: Add custom charts

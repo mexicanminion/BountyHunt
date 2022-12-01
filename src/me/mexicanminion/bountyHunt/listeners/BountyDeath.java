@@ -29,14 +29,15 @@ public class BountyDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         //Bukkit.broadcastMessage("event Handler for player death");
-        if(event.getEntity().getKiller().getType() == null){
+        if(event.getEntity().getKiller() == null){
             return;
         }
         if(event.getEntity().getKiller().getType() == EntityType.PLAYER){
             Player p = event.getEntity();
-            //Bukkit.broadcastMessage("player was killed by player");
-            //Bukkit.broadcastMessage("event Handler for player death");
-            if (p.getUniqueId() == bountyManager.seeBounty(p.getUniqueId())) {
+            if(p.getUniqueId() == p.getKiller().getUniqueId()){
+                p.getKiller().sendMessage(Utils.chat("&cYou cant do that, you cant claim your own bounty" +
+                        "silly"));
+            }else if (p.getUniqueId() == bountyManager.seeBounty(p.getUniqueId())) {
                 if(p.isDead()){
                     bountyManager.setPlayerBounty(p.getUniqueId(),p.getKiller().getUniqueId());
                     Bukkit.broadcastMessage(p.getKiller().getDisplayName() + " killed " + p.getDisplayName() + " and claimed their bounty!!");

@@ -27,13 +27,20 @@ public class BountyBoard implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         Player p = (Player) sender;
+        boolean noBounty = true;
 
         if(p.hasPermission("bountyboard.use")){
-            p.sendMessage(Utils.chat("&2Players with bounties online"));
+            p.sendMessage(Utils.chat("&2Players with bounties online: " + Bukkit.getOnlinePlayers().size()));
             for(Player player : Bukkit.getOnlinePlayers()){
                 if((bountyManager.seeBounty(player.getUniqueId()) != null) && currencyManager.getPlayerCurrency(player) > 0) {
-                    p.sendMessage(Utils.chat("&c" + player.getDisplayName() + " for " + currencyManager.getPlayerCurrency(player) + " diamonds with (time)" + timerManager.getTimer(player) + " left"));
+                    noBounty = false;
+                    p.sendMessage(Utils.chat("&c" + player.getDisplayName() + " for " +
+                            currencyManager.getPlayerCurrency(player) +
+                            " diamonds with (time) " + timerManager.getTimer(player.getUniqueId()) + " left"));
                 }
+            }
+            if(noBounty){
+                p.sendMessage(Utils.chat("&cThere are no players online with a bounty"));
             }
 
             return true;

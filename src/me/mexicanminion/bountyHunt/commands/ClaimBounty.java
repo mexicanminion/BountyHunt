@@ -38,10 +38,14 @@ public class ClaimBounty implements CommandExecutor {
             if(Bukkit.getPlayer(args[0]) != null) {
                 bountyPlayer = Bukkit.getPlayer(args[0]);
                 assert bountyPlayer != null;
-                if (bountyManager.getBounty(bountyPlayer.getUniqueId()).equals(p.getUniqueId())) {
+                if (bountyManager.getBounty(bountyPlayer.getUniqueId()) == null && currencyManager.getPlayerCurrency(bountyPlayer) > 0) {
+                    sender.sendMessage("This players bounty is still active");
+                }else if (bountyManager.getBounty(bountyPlayer.getUniqueId()) == null) {
+                    sender.sendMessage("This player does not have a bounty, Set one using /setbounty (playername)!");
+                }else if(bountyManager.getBounty(bountyPlayer.getUniqueId()).equals(p.getUniqueId())){
                     p.openInventory(ClaimBountyUI.GUI(bountyPlayer));
                 }else{
-                    sender.sendMessage("You can not claim this bounty or this player does not have a bounty");
+                    sender.sendMessage("You can not claim this bounty");
                 }
             }else{
                 sender.sendMessage("/claimbounty <player>");
